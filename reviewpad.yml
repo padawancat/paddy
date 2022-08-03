@@ -3,15 +3,13 @@ api-version: reviewpad.com/v3.x
 edition: professional
 
 rules:
-  - name: hasCustomKeywordInTitle
+  - name: tautology
     kind: patch
-    description: Verifies if the pull request title the keyword "AWS"
-    spec: $contains($title(), "AWS")
+    spec: "true"
 
 workflows:
-  - name: assign-to-approver
-    description: Assigns to app approver
+  - name: validation
     if:
-      - rule: hasCustomKeywordInTitle
+      - rule: tautology
     then:
-      - $assignAssignees(["ferreiratiago"])
+      - $addToProject

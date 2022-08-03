@@ -8,5 +8,3 @@ jobs:
     steps:
       - name: Reviewpad
         uses: reviewpad/action@v3.x
-        with:
-          token: ${{ secrets.REVIEWPAD_TOKEN }}

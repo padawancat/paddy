@@ -1,0 +1,12 @@
+name: Reviewpad With Token
+
+on: pull_request
+
+jobs:
+  reviewpad_with_token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reviewpad
+        uses: reviewpad/action@canary
+        with:
+          token: ${{ secrets.REVIEWPAD_TOKEN }}
