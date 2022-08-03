@@ -1,9 +1,9 @@
-name: Reviewpad
+name: Reviewpad v3
 
 on: pull_request
 
 jobs:
-  reviewpad:
+  reviewpad_v3:
     runs-on: ubuntu-latest
     steps:
       - name: Reviewpad

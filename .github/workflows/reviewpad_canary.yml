@@ -1,9 +1,9 @@
-name: Reviewpad
+name: Reviewpad Canary
 
 on: pull_request
 
 jobs:
-  reviewpad:
+  reviewpad_canary:
     runs-on: ubuntu-latest
     steps:
       - name: Reviewpad

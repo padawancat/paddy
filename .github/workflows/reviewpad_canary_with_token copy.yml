@@ -1,9 +1,9 @@
-name: Reviewpad With Token
+name: Reviewpad Canary With Token
 
 on: pull_request
 
 jobs:
-  reviewpad_with_token:
+  reviewpad_canary_with_token:
     runs-on: ubuntu-latest
     steps:
       - name: Reviewpad
