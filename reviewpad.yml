@@ -12,4 +12,5 @@ workflows:
     if:
       - rule: tautology
     then:
-      - $addToProject("my project", "in progress")
+      - $addToProject("my public project", "in progress")
+      - $addToProject("my private project", "in progress")
