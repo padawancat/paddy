@@ -1,4 +1,4 @@
-name: Reviewpad v3 With Token
+name: Reviewpad
 
 on: pull_request
 

@@ -1,4 +1,4 @@
-name: Reviewpad Canary
+name: Reviewpad
 
 on: pull_request
 
