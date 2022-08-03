@@ -12,4 +12,4 @@ workflows:
     if:
       - rule: tautology
     then:
-      - $addToProject
+      - $addToProject("my project", "in progress")
