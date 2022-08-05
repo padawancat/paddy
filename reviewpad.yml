@@ -3,6 +3,9 @@ api-version: reviewpad.com/v3.x
 edition: professional
 
 rules:
+  - name: tautology
+    kind: patch
+    spec: "true"
   - name: waiting-review
     kind: patch
     spec: $isWaitingForReview()
@@ -13,6 +16,9 @@ rules:
 workflows:
   - name: attention-set
     if:
+      - rule: tautology
+        extra-actions:
+          - $assignReviewer(["padawancat"])
       - rule: waiting-review
         extra-actions:
           - $addLabel("waiting-review")
