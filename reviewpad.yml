@@ -3,13 +3,19 @@ api-version: reviewpad.com/v3.x
 edition: professional
 
 rules:
-  - name: tautology
+  - name: waiting-review
     kind: patch
-    spec: "true"
+    spec: $isWaitingForReview()
+  - name: requires-author-attention
+    kind: patch
+    spec: $hasUnaddressedReviewThreads()
 
 workflows:
-  - name: validation
+  - name: attention-set
     if:
-      - rule: tautology
-    then:
-      - $addToProject("private", "in progress")
+      - rule: waiting-review
+        extra-actions:
+          - $addLabel("waiting-review")
+      - rule: requires-author-attention
+        extra-actions:
+          - $addLabel("requires-author-attention")
