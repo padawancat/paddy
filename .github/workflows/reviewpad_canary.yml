@@ -16,7 +16,7 @@ on:
       - completed
 
 jobs:
-  reviewpad_canary_with_token:
+  reviewpad:
     runs-on: ubuntu-latest
     steps:
       - name: Reviewpad

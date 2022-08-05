@@ -12,13 +12,25 @@ rules:
   - name: requires-author-attention
     kind: patch
     spec: $hasUnaddressedReviewThreads()
+  - name: should-build
+    kind: patch
+    spec: '!$hasFileExtensions([".md"]) && !$isElementOf("run-build", $labels())'
 
 workflows:
-  - name: attention-set
+  - name: reviewers
+    always-run: true
     if:
       - rule: tautology
         extra-actions:
           - $assignReviewer(["padawancat"])
+  - name: build-trigger
+    always-run: true
+    if:
+      - rule: should-build
+    then:
+      - $addLabel("run-build")
+  - name: attention-set
+    if:     
       - rule: waiting-review
         extra-actions:
           - $addLabel("waiting-review")
