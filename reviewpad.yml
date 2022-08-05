@@ -9,9 +9,15 @@ rules:
   - name: waiting-review
     kind: patch
     spec: $isWaitingForReview()
-  - name: requires-author-attention
+  - name: not-waiting-review
+    kind: patch
+    spec: '!$rule("waiting-review")'
+  - name: author-attention
     kind: patch
     spec: $hasUnaddressedReviewThreads()
+  - name: not-author-attention
+    kind: patch
+    spec: '!$rule("author-attention")'
   - name: should-build
     kind: patch
     spec: '!$hasFileExtensions([".md"]) && !$isElementOf("run-build", $labels())'
@@ -30,10 +36,17 @@ workflows:
     then:
       - $addLabel("run-build")
   - name: attention-set
+    always-run: true
     if:     
       - rule: waiting-review
         extra-actions:
           - $addLabel("waiting-review")
-      - rule: requires-author-attention
+      - rule: not-waiting-review
+        extra-actions:
+          - $removeLabel("waiting-review")
+      - rule: author-attention
         extra-actions:
           - $addLabel("requires-author-attention")
+      - rule: not-author-attention
+        extra-actions:
+          - $removeLabel("requires-author-attention")
