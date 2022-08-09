@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: Print GitHub event action
         run: |
-          echo "${{ github.event }}"
+          echo "${{ JSON.stringify(github.event) }}"
 
 
 
