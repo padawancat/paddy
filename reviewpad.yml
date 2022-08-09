@@ -3,9 +3,9 @@ api-version: reviewpad.com/v3.x
 edition: professional
 
 rules:
-  - name: tautology
-    kind: patch
-    spec: "true"
+  # - name: tautology
+  #   kind: patch
+  #   spec: "true"
   # Waiting Review
   - name: waiting-review
     kind: patch
