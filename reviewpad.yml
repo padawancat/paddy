@@ -6,29 +6,32 @@ rules:
   - name: tautology
     kind: patch
     spec: "true"
+  # Waiting Review
   - name: waiting-review
     kind: patch
     spec: $isWaitingForReview()
   - name: not-waiting-review
     kind: patch
     spec: '!$rule("waiting-review")'
+  # Author Attention
   - name: author-attention
     kind: patch
     spec: $hasUnaddressedReviewThreads()
   - name: not-author-attention
     kind: patch
     spec: '!$rule("author-attention")'
+  # Build
   - name: should-build
     kind: patch
     spec: '!$hasFileExtensions([".md"]) && !$isElementOf("run-build", $labels())'
 
 workflows:
-  - name: reviewers
-    always-run: true
-    if:
-      - rule: tautology
-        extra-actions:
-          - $assignReviewer(["padawancat"])
+  # - name: reviewers
+  #   always-run: true
+  #   if:
+  #     - rule: tautology
+  #       extra-actions:
+  #         - $assignReviewer(["padawancat"])
   - name: build-trigger
     always-run: true
     if:

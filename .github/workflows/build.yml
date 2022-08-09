@@ -5,9 +5,9 @@ on:
     types: [ labeled, synchronize ]
 
 jobs:
-  say-hello:
+  build:
       if: ${{ (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'run-build')) || (github.event.action == 'labeled' && github.event.label.name == 'run-build') }}
       runs-on: ubuntu-latest
       steps:
-          - run: echo Hello World
+          - run: echo Build
 
