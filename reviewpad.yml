@@ -3,53 +3,14 @@ api-version: reviewpad.com/v3.x
 edition: professional
 
 rules:
-  # - name: tautology
-  #   kind: patch
-  #   spec: "true"
-  # Waiting Review
-  - name: waiting-review
+  - name: tautology
     kind: patch
-    spec: $isWaitingForReview()
-  - name: not-waiting-review
-    kind: patch
-    spec: '!$rule("waiting-review")'
-  # Author Attention
-  - name: author-attention
-    kind: patch
-    spec: $hasUnaddressedReviewThreads()
-  - name: not-author-attention
-    kind: patch
-    spec: '!$rule("author-attention")'
-  # Build
-  - name: should-build
-    kind: patch
-    spec: '!$hasFileExtensions([".md"]) && !$isElementOf("run-build", $labels())'
+    spec: 1 == 1
 
 workflows:
-  # - name: reviewers
-  #   always-run: true
-  #   if:
-  #     - rule: tautology
-  #       extra-actions:
-  #         - $assignReviewer(["padawancat"])
-  - name: build-trigger
+  - name: rebase
     always-run: true
     if:
-      - rule: should-build
+      - rule: tautology
     then:
-      - $addLabel("run-build")
-  - name: attention-set
-    always-run: true
-    if:     
-      - rule: waiting-review
-        extra-actions:
-          - $addLabel("waiting-review")
-      - rule: not-waiting-review
-        extra-actions:
-          - $removeLabel("waiting-review")
-      - rule: author-attention
-        extra-actions:
-          - $addLabel("requires-author-attention")
-      - rule: not-author-attention
-        extra-actions:
-          - $removeLabel("requires-author-attention")
+      - $rebase()
