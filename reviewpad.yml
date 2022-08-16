@@ -1,7 +1,5 @@
 api-version: reviewpad.com/v3.x
 
-edition: professional
-
 rules:
   - name: tautology
     kind: patch
