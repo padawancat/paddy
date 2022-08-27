@@ -1,0 +1,17 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ferreiratiago/golang-rp:latest
+    steps:
+      - name: Reviewpad
+        uses: reviewpad/action@dev/rebase
+        with:
+          token: ${{ secrets.REVIEWPAD_TOKEN }}
