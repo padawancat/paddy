@@ -4,6 +4,8 @@ on:
   push:
     branches: [ main ]
   
+env:
+  LD_LIBRARY_PATH: /usr/local/lib
 
 jobs:
   build:
