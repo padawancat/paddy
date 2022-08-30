@@ -1,7 +1,14 @@
 api-version: reviewpad.com/v3.x
 
 workflows:
+  - name: debug
+    always-run: true
+    if:
+      - rule: "true"
+        extra-actions:
+          - $addLabel("debug")
   - name: attention-set
+    always-run: true
     if:
       - rule: $isWaitingForReview()
         extra-actions:
