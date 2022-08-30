@@ -1,14 +1,17 @@
 api-version: reviewpad.com/v3.x
 
-rules:
-  - name: tautology
-    kind: patch
-    spec: 1 == 1
-
 workflows:
-  - name: rebase
-    always-run: true
+  - name: attention-set
     if:
-      - rule: tautology
-    then:
-      - $rebase()
+      - rule: $isWaitingForReview()
+        extra-actions:
+          - $addLabel("waiting-review")
+      - rule: '!$rule("waiting-review")'
+        extra-actions:
+          - $removeLabel("waiting-review")
+      - rule: $hasUnaddressedThreads()
+        extra-actions:
+          - $addLabel("requires-author-attention")
+      - rule: '!$rule("author-attention")'
+        extra-actions:
+          - $removeLabel("requires-author-attention")
