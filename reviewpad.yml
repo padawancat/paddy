@@ -1,15 +1,24 @@
 api-version: reviewpad.com/v3.x
 
-edition: professional
-
-rules:
-  - name: tautology
-    kind: patch
-    spec: "true"
-
 workflows:
-  - name: validation
+  - name: debug
+    always-run: true
     if:
-      - rule: tautology
-    then:
-      - $addToProject("private", "in progress")
+      - rule: "true"
+        extra-actions:
+          - $addLabel("debug")
+  - name: attention-set
+    always-run: true
+    if:
+      - rule: $isWaitingForReview()
+        extra-actions:
+          - $addLabel("waiting-review")
+      - rule: "!$isWaitingForReview()"
+        extra-actions:
+          - $removeLabel("waiting-review")
+      - rule: $hasUnaddressedThreads()
+        extra-actions:
+          - $addLabel("requires-author-attention")
+      - rule: "!$hasUnaddressedThreads()"
+        extra-actions:
+          - $removeLabel("requires-author-attention")
